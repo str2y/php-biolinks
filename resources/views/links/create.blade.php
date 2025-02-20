@@ -1,24 +1,24 @@
 <div>
-    <h1>Login</h1>
+    <h1>Criar um Link</h1>
     @if ($message = session()->get('message'))
         <div>{{ $message }}</div>
     @endif
-    <form action="{{ route('login') }}" method="post">
+    <form action="{{ route('links.create') }}" method="post">
         @csrf
         <div>
-            <input name="email" placeholder="Email" value="{{ old('email') }}" />
-            @error('email')
+            <input name="link" placeholder="Link" value="{{ old('link') }}" />
+            @error('link')
                 <span>{{ $message }}</span>
             @enderror
         </div>
         <br>
         <div>
-            <input type="password" name="password" placeholder="Senha" />
-            @error('password')
+            <input name="name" placeholder="Name" value="{{ old('name') }}" />
+            @error('name')
                 <span>{{ $message }}</span>
             @enderror
         </div>
         <br>
-        <button>Logar</button>
+        <button>Salvar</button>
     </form>
 </div>
