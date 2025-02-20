@@ -6,14 +6,14 @@
     <form action="{{ route('register') }}" method="post">
         @csrf
         <div>
-            <input name="name" placeholder="Name" value="{{ old('name') }}" />
+            <input name="name" placeholder="Name" />
             @error('name')
                 <span>{{ $message }}</span>
             @enderror
         </div>
         <br>
         <div>
-            <input name="email" placeholder="Email" value="{{ old('email') }}" />
+            <input name="email" placeholder="Email" />
             @error('email')
                 <span>{{ $message }}</span>
             @enderror
