@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LinkController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,8 +22,18 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/logout', LogoutController::class)->name('logout');
-    Route::get('/dashboard', fn() => 'dashboard :: ' . auth()->id())->name('dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
-    Route::get('/links/create', [LinkController::class, 'create'])->name('links.create');
-    Route::post('/links/create', [LinkController::class, 'store']);
+
+    Route::middleware('can:atualizar,link')->group(function(){
+        Route::get('/links/create', [LinkController::class, 'create'])->name('links.create');
+        Route::post('/links/create', [LinkController::class, 'store']);
+        Route::get('/links/{link}/edit', [LinkController::class, 'edit'])->name('links.edit');
+        Route::put('/links/{link}/edit', [LinkController::class, 'update']);
+        Route::delete('/links/{link}', [LinkController::class, 'destroy'])->name('links.destroy');
+
+        Route::patch('/links/{link}/up', [LinkController::class, 'up'])->name('links.up');
+        Route::patch('/links/{link}/down', [LinkController::class, 'down'])->name('links.down');
+    });
+
 });
