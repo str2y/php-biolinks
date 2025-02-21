@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Requests\ProfileRequest;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LinkController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LinkController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::get('/', function () {
@@ -24,8 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', LogoutController::class)->name('logout');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
-
-    Route::middleware('can:atualizar,link')->group(function(){
+    Route::middleware('can:atualizar,link')->group(function () {
         Route::get('/links/create', [LinkController::class, 'create'])->name('links.create');
         Route::post('/links/create', [LinkController::class, 'store']);
         Route::get('/links/{link}/edit', [LinkController::class, 'edit'])->name('links.edit');
@@ -35,5 +36,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/links/{link}/up', [LinkController::class, 'up'])->name('links.up');
         Route::patch('/links/{link}/down', [LinkController::class, 'down'])->name('links.down');
     });
-
 });
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::put('/profile', [ProfileController::class, 'update']);
