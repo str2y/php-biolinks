@@ -21,7 +21,7 @@
                 @enderror
             </div>
             <br>
-            <button class="btn btn-primary">DaisyUI Button</button>
+            <button class="btn btn-primary">Login</button>
         </form>
     </div>
 
