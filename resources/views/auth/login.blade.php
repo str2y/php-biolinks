@@ -6,7 +6,7 @@
                 <x-input name="password" type="password" placeholder="Password" />
             </x-form>
             <x-slot:actions>
-                    <x-a :href="route('login')">I don't have an account</x-a>
+                    <x-a :href="route('register')">I don't have an account</x-a>
                 <x-button form="login-form">Login</x-button>
             </x-slot:actions>
         </x-card>
