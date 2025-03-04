@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Link;
-
-use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLinkRequest;
 use App\Http\Requests\UpdateLinkRequest;
+use App\Models\User;
 
 class LinkController extends Controller
 {
@@ -18,7 +17,11 @@ class LinkController extends Controller
 
     public function store(StoreLinkRequest $request)
     {
-        return to_route('dashboard');
+        /** @var User */
+        $user = auth()->user();
+
+        $user->links()->create($request->validated());
+        return to_route('dashboard')->with('message', 'Link criado com sucesso!');
     }
 
     public function edit(Link $link)
