@@ -1,4 +1,5 @@
 @props(['title' => null, 'actions' => null])
+
 <div class="card bg-base-100 w-2/3 shadow-xl">
     <div class="card-body">
         @if ($title)
